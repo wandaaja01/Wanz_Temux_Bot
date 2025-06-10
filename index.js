@@ -144,7 +144,57 @@ bot.command("play", async (ctx) => {
 
 // Jalankan bot
 bot.launch();
-console.log("🤖 Bot Telegram aktif di Termux!");
+const chalk = require("chalk");
 
+// Fungsi format angka jadi dua digit
+const twoDigit = (num) => num.toString().padStart(2, "0");
+
+// Fungsi ambil zona waktu lokal
+const getTimeZone = () => {
+  const offset = new Date().getTimezoneOffset() / -60;
+  if (offset === 7) return "WIB";
+  if (offset === 8) return "WITA";
+  if (offset === 9) return "WIT";
+  return "UTC" + (offset >= 0 ? "+" + offset : offset);
+};
+
+// Fungsi update tampilan tiap detik
+setInterval(() => {
+  const now = new Date();
+  const jam = twoDigit(now.getHours());
+  const menit = twoDigit(now.getMinutes());
+  const detik = twoDigit(now.getSeconds());
+  const tanggal = twoDigit(now.getDate());
+  const bulan = twoDigit(now.getMonth() + 1);
+  const tahun = now.getFullYear();
+  const zona = getTimeZone();
+
+  console.clear();
+  console.log(chalk.green(`
+╔════════════════════════════════════════════════════╗
+║             ${chalk.black.bgGreen.bold(' 🤖 BOT TELEGRAM AKTIF DI TERMUX! ')}              
+╚════════════════════════════════════════════════════╝
+`));
+
+  console.log(`${chalk.cyan('📛 Nama Bot        :')} ${chalk.redBright.bold('Wanz Official')}`);
+  console.log(`${chalk.cyan('🎬 YouTube         :')} ${chalk.white('Wanz Official-ID')}`);
+  console.log(`${chalk.cyan('📡 Status Sistem   :')} ${chalk.greenBright('Bot Telegram Sedang Berjalan')}`);
+  console.log(`${chalk.cyan('🛠️  System          :')} ${chalk.yellowBright('Bot Database Wanz Official')}`);
+
+  console.log(chalk.magenta('\n🌐 Sosial Media:'));
+  console.log(`${chalk.magenta('   📱 WhatsApp     :')} ${chalk.white('wa.me/6283898206223')}`);
+  console.log(`${chalk.magenta('   📷 Instagram    :')} ${chalk.white('instagram.com/wan_xyzbca')}`);
+  console.log(`${chalk.magenta('   📢 Telegram     :')} ${chalk.white('t.me/wanzOfficiall')}`);
+
+  console.log(chalk.gray('\n══════════════════════════════════════════════════════'));
+  console.log(`${chalk.greenBright('>>')} ${chalk.white('Jangan lupa support YouTube Wanz Official!')}`);
+  console.log(`${chalk.greenBright('>>')} ${chalk.white('Subscribe, Like, dan Share agar semakin berkembang ')}`);
+  console.log(chalk.gray('══════════════════════════════════════════════════════'));
+
+  console.log(`${chalk.blueBright('📅 Tanggal :')} ${chalk.white(`${tanggal}-${bulan}-${tahun}`)}`);
+  console.log(`${chalk.blueBright('⏰ Waktu   :')} ${chalk.white(`${jam}:${menit}:${detik}`)} ${chalk.gray(`[${zona}]`)}`);
+  console.log(`${chalk.cyanBright('👾 System Log:')} ${chalk.white('Monitoring... No Threat Detected.')}`);
+}, 1000);
 // Error handler
 process.on("unhandledRejection", console.error);
+            
